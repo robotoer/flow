@@ -1,13 +1,34 @@
 import React from 'react';
-import { Button, Dropdown, Form, NavDropdown } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import { createEditor } from 'slate';
-import { Editable, Slate, withReact } from 'slate-react';
+import { Button, Form } from 'react-bootstrap';
 import { BlockDefinition } from '../models/block-definition';
-import { ProtocolEditorPageParams } from '../pages/ProtocolEditorPage';
+
+function ProtocolBlockQuestionFormGroup({question, setQuestion}: {
+    question?: string;
+    setQuestion: (question?: string) => void;
+}) {
+    return (
+        <Form.Group>
+            <Form.Label>Question</Form.Label>
+            <Form.Control
+                type="text"
+                placeholder="Enter a question"
+                value={question}
+                onInput={(e: React.FormEvent<HTMLInputElement>) => setQuestion((e.target as HTMLInputElement).value)}
+            />
+        </Form.Group>
+    );
+}
+
+function ProtocolBlockOptionsFormGroup({options, setOptions}: {
+    options?: string[];
+    setOptions: (options?: string[]) => void;
+}) {
+    return ()
+}
 
 export interface ProtocolBlockEditorProps {
     block?: BlockDefinition;
+    setBlock: (block?: BlockDefinition) => void;
 }
 
 // Need to support the following types of blocks:
@@ -27,43 +48,29 @@ export function ProtocolBlockEditor(props: ProtocolBlockEditorProps) {
         );
     }
     
-    const editor = React.useMemo(() => withReact(createEditor()), []);
-    const [description, setDescription] = React.useState<Node[]>([]);
-
-    const { id } = useParams<ProtocolEditorPageParams>();
-
     switch (props.block.type) {
         case 'text-question':
             return (
-                <div>
-                    {props.block.question && <Form.Label>{props.block.question}</Form.Label>}
-                    <Slate editor={editor} value={description} onChange={newValue => setDescription(newValue)}>
-                        <Editable />
-                    </Slate>
-                </div>
+                <ProtocolBlockQuestionFormGroup
+                    question={props.block.question}
+                    setQuestion={question => props.setBlock({ ...props.block, type: 'text-question', question })}
+                />
             );
         case 'options-question':
-            switch (props.block.optionType) {
-                case "menu-item":
-                case "user":
-                    return (
-                        <Dropdown>
-                            <Dropdown.Toggle variant="primary" id={`formUserQuestion-${props.block.id}`}>
-                                {props.block.question ? props.block.question : "Select a user"}
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {props.block.options && props.block.options.map(option => <Dropdown.Item>{option}</Dropdown.Item>)}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    );
-                default:
-                    return (
-                        <Form.Group controlId={`formOptionsQuestion-${props.block.id}`}>
-                            {props.block.question && <Form.Label>{props.block.question}</Form.Label>}
-                            <Form.Check type={props.block.optionType}></Form.Check>
-                        </Form.Group>
-                    );
-            }
+            return <>
+                <ProtocolBlockQuestionFormGroup
+                    question={props.block.question}
+                    setQuestion={question => props.setBlock({ ...props.block, type: 'text-question', question })}
+                />
+                <Form.Group>
+                    <Form.Label>Options</Form.Label>
+                    <Form.Control type="text" placeholder="Enter a question" value={props.block.question} onInput={(e: React.FormEvent<HTMLInputElement>) => props.setBlock({
+                        ...props.block,
+                        type: 'text-question',
+                        question: (e.target as HTMLInputElement).value,
+                    })} />
+                </Form.Group>
+            </>;
         case 'plate-sampler':
             return (
 
