@@ -1,6 +1,11 @@
 import React from 'react';
+import { Run } from '../models/run';
 
-export function RunBlockEditor() {
+export interface RunBlockEditorProps {
+    run?: Run;
+}
+
+export function RunBlockEditor(props: RunBlockEditorProps) {
     return <div>
         TODO: RunBlockEditor
     </div>
