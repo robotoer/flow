@@ -35,7 +35,7 @@ export interface PlateAddReagentBlockDefinition extends Audited {
     id?: number;
     name?: string;
     plateSize?: 96 | 384;
-    reagentId?: number;
+    reagentLabel?: string;
 }
 
 export interface PlateSequencerBlockDefinition extends Audited {
