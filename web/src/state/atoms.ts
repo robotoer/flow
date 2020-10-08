@@ -11,7 +11,7 @@ import { labflowOptions } from "../config";
 // ----------------------------------------------------------------------------
 
 async function initializeAuth0State(): Promise<Auth0State> {
-  switch (labflowOptions.authType) {
+  switch (labflowOptions.authProvider) {
     case 'auth0':
       if (labflowOptions.auth0Options) {
         const auth0Client = await createAuth0Client(labflowOptions.auth0Options);

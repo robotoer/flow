@@ -13,7 +13,7 @@ export const protocolQuery = selectorFamily<Protocol | undefined, number>({
   key: "protocolQuery",
   get: protocolId => async ({ get }) => {
     const protocols = get(protocolsState);
-    switch (labflowOptions.authType) {
+    switch (labflowOptions.authProvider) {
       case 'auth0':
         const { auth0Client } = get(auth0State)
         if (protocolId && auth0Client) {
@@ -44,7 +44,7 @@ export const runQuery = selectorFamily<Run | undefined, number>({
   key: "runQuery",
   get: runId => async ({ get }) => {
     const runs = get(runsState);
-    switch (labflowOptions.authType) {
+    switch (labflowOptions.authProvider) {
       case 'auth0':
         const { auth0Client } = get(auth0State)
         if (runId && auth0Client) {
@@ -81,7 +81,7 @@ export const protocolsQuery = selector<Protocol[]>({
   get: async ({ get }) => {
     const { protocolCache } = get(protocolsState);
     let response: Response;
-    switch (labflowOptions.authType) {
+    switch (labflowOptions.authProvider) {
       case 'auth0':
         const { auth0Client } = get(auth0State);
         if (auth0Client) {
@@ -118,7 +118,7 @@ export const runsQuery = selector<Run[]>({
   get: async ({ get }) => {
     const { runCache } = get(runsState);
     let response: Response;
-    switch (labflowOptions.authType) {
+    switch (labflowOptions.authProvider) {
       case 'auth0':
         const { auth0Client } = get(auth0State)
         if (auth0Client) {

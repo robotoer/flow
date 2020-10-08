@@ -1,9 +1,9 @@
 import { Auth0ClientOptions } from "@auth0/auth0-spa-js";
 
-export type LabflowAuthType = 'none' | 'auth0';
+export type LabflowAuthProvider = 'none' | 'auth0';
 
 export interface LabflowOptions {
-    authType: LabflowAuthType;
+    authProvider: LabflowAuthProvider;
     apiURL: string;
 
     // Auth type options
@@ -11,7 +11,7 @@ export interface LabflowOptions {
 }
 
 export const labflowOptions: LabflowOptions = {
-    authType: parseAuthType(),
+    authProvider: parseAuthProvider(),
     apiURL: parseAPIURL(),
 
     auth0Options: parseAuth0Options(),
@@ -19,8 +19,8 @@ export const labflowOptions: LabflowOptions = {
 
 
 // Parse function helpers
-function parseAuthType(): LabflowAuthType {
-    switch (process.env.REACT_APP_AUTH_TYPE) {
+function parseAuthProvider(): LabflowAuthProvider {
+    switch (process.env.REACT_APP_AUTH_PROVIDER) {
         case 'auth0':
             return 'auth0';
         case 'none':
@@ -34,7 +34,7 @@ function parseAuthType(): LabflowAuthType {
 }
 
 function parseAPIURL(): string {
-    const apiURL = process.env.REACT_APP_AUTH_TYPE;
+    const apiURL = process.env.REACT_APP_API_URL;
     if (!apiURL) {
         throw 'Please provide a value for the environment variable "REACT_APP_API_URL"';
     }
@@ -50,7 +50,7 @@ export const auth0Scopes = [
 ];
 
 function parseAuth0Options(): Auth0ClientOptions | undefined {
-    switch (process.env.REACT_APP_AUTH_TYPE) {
+    switch (parseAuthProvider()) {
         case 'auth0':
             const domain = process.env.REACT_APP_AUTH0_DOMAIN;
             const client_id = process.env.REACT_APP_AUTH0_CLIENT_ID;
