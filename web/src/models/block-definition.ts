@@ -1,8 +1,6 @@
-import { Audited } from "./audited";
-
 export type BlockDefinition = TextQuestionBlockDefinition | OptionsQuestionBlockDefinition | PlateSamplerBlockDefinition | PlateAddReagentBlockDefinition | PlateSequencerBlockDefinition;
 
-export interface TextQuestionBlockDefinition extends Audited {
+export interface TextQuestionBlockDefinition {
     type: 'text-question';
 
     id?: number;
@@ -10,7 +8,7 @@ export interface TextQuestionBlockDefinition extends Audited {
     question?: string;
 }
 
-export interface OptionsQuestionBlockDefinition extends Audited {
+export interface OptionsQuestionBlockDefinition {
     type: 'options-question';
 
     id?: number;
@@ -20,7 +18,7 @@ export interface OptionsQuestionBlockDefinition extends Audited {
     options?: string[];
 }
 
-export interface PlateSamplerBlockDefinition extends Audited {
+export interface PlateSamplerBlockDefinition {
     type: 'plate-sampler';
 
     id?: number;
@@ -29,7 +27,7 @@ export interface PlateSamplerBlockDefinition extends Audited {
     plateSize?: 96;
 }
 
-export interface PlateAddReagentBlockDefinition extends Audited {
+export interface PlateAddReagentBlockDefinition {
     type: 'plate-add-reagent';
 
     id?: number;
@@ -38,7 +36,7 @@ export interface PlateAddReagentBlockDefinition extends Audited {
     reagentLabel?: string;
 }
 
-export interface PlateSequencerBlockDefinition extends Audited {
+export interface PlateSequencerBlockDefinition {
     type: 'plate-sequencer';
 
     id?: number;
