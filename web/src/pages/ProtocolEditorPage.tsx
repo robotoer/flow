@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { useRecoilCallback, useRecoilValueLoadable } from 'recoil';
+import { useRecoilCallback, useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { createEditor, Node } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import { LoadableError } from '../components/LoadableError';
