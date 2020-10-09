@@ -1,11 +1,14 @@
 import React from 'react';
 import { Form, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { useRecoilCallback } from 'recoil';
 import { useRecoilValueLoadable } from 'recoil';
 import { createEditor, Node } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import { LoadableError } from '../components/LoadableError';
 import { ProtocolBlockEditor } from '../components/ProtocolBlockEditor';
+import { labflowOptions } from '../config';
+import { apiFetch, fetchWithBearerToken } from '../state/api';
 import { protocolQuery } from '../state/selectors';
 
 export interface ProtocolEditorPageParams {
@@ -19,6 +22,9 @@ export function ProtocolEditorPage() {
     const { id } = useParams<ProtocolEditorPageParams>();
 
     const protocolLoadable = useRecoilValueLoadable(protocolQuery(parseInt(id)));
+    const protocolUpsert = useRecoilCallback(({set, snapshot}) => async params => {
+        const response = await apiFetch(labflowOptions, () => snapshot.)
+    });
 
     switch (protocolLoadable.state) {
         case "hasValue":
