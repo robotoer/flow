@@ -6,6 +6,7 @@ services:
       context: web
       dockerfile: Dockerfile.dev
     image: labgrid/labflow-webapp-dev:latest
+    tty: true
     environment:
       # If rebuild-on-save is not working, try uncommenting the following (may increase CPU usage of system and prevent sleeping):
       - "CHOKIDAR_USEPOLLING=true"
@@ -17,7 +18,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - ./web:/app
       - /app/node_modules
   # Uncomment the following to serve the production webapp container.
   # webapp:

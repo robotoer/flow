@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import { BrowserRouter, Route, Redirect, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import { ProfileMenu } from './components/ProfileMenu';
 import { HomePage } from './pages/HomePage';
 import { ProfilePage } from './pages/ProfilePage';
